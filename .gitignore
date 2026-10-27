@@ -1,0 +1,26 @@
+# Ignorar arquivos de ambiente e segredos
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+**/.pytest_cache/
+.venv/
+**/.venv/
+venv/
+*.db
+*.sqlite3
+
+# Node / Frontend
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+build/
+.vite/
+*.log
