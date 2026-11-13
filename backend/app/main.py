@@ -117,8 +117,8 @@ def bootstrap_application(session: Session):
     if not user:
         user = User(
             id=DEFAULT_USER_ID,
-            email="bruno@empresa.com.br",
-            name="Bruno",
+            email="usuario@example.com",
+            name="Usuário",
             timezone="America/Sao_Paulo",
         )
         session.add(user)
@@ -143,7 +143,7 @@ def bootstrap_application(session: Session):
         notif_pref = NotificationPreference(
             user_id=DEFAULT_USER_ID,
             email_enabled=True,
-            email_address="bruno@empresa.com.br",
+            email_address="usuario@example.com",
             telegram_enabled=False,
         )
         session.add(notif_pref)
@@ -422,8 +422,8 @@ async def get_dashboard(
 
     return {
         "user": {
-            "name": user.name if user else "Bruno",
-            "email": user.email if user else "bruno@empresa.com.br",
+            "name": user.name if user else "Usuário",
+            "email": user.email if user else "usuario@example.com",
             "timezone": "America/Sao_Paulo",
         },
         "period": {
@@ -1222,13 +1222,13 @@ async def get_all_settings(session: Session = Depends(get_session)):
     ).all()
 
     return {
-        "user_name": user.name if user else "Bruno",
-        "user_email": user.email if user else "bruno@empresa.com.br",
+        "user_name": user.name if user else "Usuário",
+        "user_email": user.email if user else "usuario@example.com",
         "timezone": "America/Sao_Paulo",
         "report_preferences": rep_pref,
         "notification_preferences": {
             "email_enabled": notif_pref.email_enabled if notif_pref else True,
-            "email_address": notif_pref.email_address if notif_pref else "bruno@empresa.com.br",
+            "email_address": notif_pref.email_address if notif_pref else "usuario@example.com",
             "smtp_host": notif_pref.smtp_host if notif_pref else "",
             "smtp_port": notif_pref.smtp_port if notif_pref else 587,
             "smtp_user": notif_pref.smtp_user if notif_pref else "",

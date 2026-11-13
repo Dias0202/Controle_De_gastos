@@ -8,13 +8,13 @@ Plataforma Full-Stack de acompanhamento financeiro ativo e passivo para cartão 
 
 A solução é dividida em camadas desacopladas para garantir precisão contábil, segurança das credenciais bancárias e facilidade de manutenção:
 
-- **Backend (`c:\projetos\Cartao_bruno\backend`)**:
+- **Backend (`backend/`)**:
   - **FastAPI + SQLModel (SQLAlchemy) + Pydantic**: API REST estruturada em 6 módulos de domínio.
   - **Motor Financeiro (`app/services/financial_engine.py`)**: Aritmética monetária estritamente em **centavos inteiros (`amount_cents`)**, eliminando imprecisões de ponto flutuante binário (`float`). Normalização de datas para `America/Sao_Paulo`, extração de parcelas (`installment_number` / `total_installments`), reconciliação `PENDING` → `POSTED` e exclusão automática de pagamentos da própria fatura (`BILL_PAYMENT`) e transferências entre contas próprias (`SELF_TRANSFER`) para jamais duplicar despesas já contabilizadas compra a compra.
   - **Classificador Determinístico (`app/services/categorizer_service.py`)**: Avalia transações na ordem: (1) Classificação manual do usuário (`manual_reviewed=True`), (2) Regras criadas pelo usuário ordenadas por `priority DESC`, (3) Mapeamento de categorias da Pluggy (`pluggy_category`), ou (4) `Não Categorizado` para revisão transparente.
   - **Conector Pluggy (`app/services/pluggy_service.py` & `app/services/sync_service.py`)**: Autenticação server-to-server (`POST /auth`), emissão de `connectToken` efêmero (`POST /connect_token`), paginação por cursor via `GET /v2/transactions`, faturas (`GET /bills`) e sincronização idempotente com trava de concorrência (`SyncRun`) e trilha de auditoria (`AuditEvent`).
   - **Motor de Relatórios e Alertas (`app/services/report_service.py`)**: Geração de relatórios diários (20:00 `America/Sao_Paulo`), semanais (domingo à noite com comparativo contra os 7 dias anteriores) e alertas de orçamento (`50%`, `75%`, `90%`, `100%`) com envio via **E-mail (Resend API / SMTP TLS)**, **Telegram Bot** e **Discord Webhook**.
-- **Frontend (`c:\projetos\Cartao_bruno\frontend`)**:
+- **Frontend (`frontend/`)**:
   - **React 18 + TypeScript + Tailwind CSS + Recharts + Widget Oficial `react-pluggy-connect`**.
   - 6 páginas completas: **Visão Geral (Dashboard)**, **Transações**, **Orçamentos e Categorias**, **Relatórios Diários e Semanais**, **Conexões Bancárias (Open Finance)** e **Configurações & LGPD**.
 
@@ -69,7 +69,7 @@ Definido em `backend/migrations/0001_initial_schema.sql` e `backend/app/models.p
 - **Node.js 18+**
 
 ### 1. Configurar Variáveis de Ambiente
-Crie ou verifique o arquivo `.env` na raiz `c:\projetos\Cartao_bruno\.env` (baseado em `.env.example`):
+Crie ou verifique o arquivo `.env` na raiz do repositório (`.env`) (baseado em `.env.example`):
 ```env
 PLUGGY_CLIENT_ID=seu_client_id
 PLUGGY_CLIENT_SECRET=seu_client_secret
@@ -77,13 +77,13 @@ PLUGGY_CLIENT_SECRET=seu_client_secret
 
 ### 2. Iniciar o Backend (FastAPI na porta 8000)
 ```powershell
-cd c:\projetos\Cartao_bruno\backend
+cd backend
 .\.venv\Scripts\uvicorn.exe app.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
 ### 3. Iniciar o Frontend (React + Vite na porta 5173)
 ```powershell
-cd c:\projetos\Cartao_bruno\frontend
+cd frontend
 npm install
 npm run dev
 ```
@@ -96,7 +96,7 @@ Acesse no navegador: **http://localhost:5173**
 Para rodar os testes automatizados que validam a matemática em centavos, o caso do orçamento de R$ 500,00 no iFood (compras de R$ 100,00 e R$ 50,00), estornos, exclusão de pagamento de fatura, deduplicação `PENDING` → `POSTED`, sincronização real com a Pluggy Sandbox e geração de relatórios:
 
 ```powershell
-cd c:\projetos\Cartao_bruno\backend
+cd backend
 .\.venv\Scripts\python.exe -m pytest -v
 ```
 

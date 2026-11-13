@@ -33,7 +33,7 @@ def mem_session():
     engine = create_engine("sqlite:///:memory:", connect_args={"check_same_thread": False})
     SQLModel.metadata.create_all(engine)
     with Session(engine) as session:
-        user = User(id=1, email="bruno@teste.com", name="Bruno Teste")
+        user = User(id=1, email="usuario@teste.com", name="Usuário Teste")
         session.add(user)
         session.commit()
         ensure_categories_and_rules(session, user_id=1)

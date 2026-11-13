@@ -39,7 +39,7 @@ def test_e2e_full_journey_budgets_categorization_pluggy_and_reports(client: Test
     dash_res = client.get("/api/dashboard?period=month")
     assert dash_res.status_code == 200
     dash = dash_res.json()
-    assert dash["user"]["name"] == "Bruno"
+    assert dash["user"]["name"] == "Usuário"
     assert len(dash["budgets"]) >= 5
 
     # Localizar orçamento de Delivery / Apps (iFood) de R$ 500,00
@@ -165,8 +165,8 @@ def test_e2e_full_journey_budgets_categorization_pluggy_and_reports(client: Test
     set_res = client.put(
         "/api/settings",
         json={
-            "user_name": "Bruno (Diretoria)",
-            "email_address": "bruno@empresa.com.br",
+            "user_name": "Usuário (Diretoria)",
+            "email_address": "usuario@example.com",
             "daily_time": "20:00",
         },
     )

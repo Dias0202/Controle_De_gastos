@@ -7,8 +7,8 @@ from datetime import datetime
 class User(SQLModel, table=True):
     __tablename__ = "users"
     id: Optional[int] = Field(default=None, primary_key=True)
-    email: str = Field(index=True, unique=True, default="bruno@empresa.com.br")
-    name: str = Field(default="Bruno")
+    email: str = Field(index=True, unique=True, default="usuario@example.com")
+    name: str = Field(default="Usuário")
     password_hash: str = Field(default="")
     timezone: str = Field(default="America/Sao_Paulo")
     created_at: NaiveDatetime = Field(default_factory=datetime.now)
@@ -157,7 +157,7 @@ class NotificationPreference(SQLModel, table=True):
     id: Optional[int] = Field(default=1, primary_key=True)
     user_id: int = Field(foreign_key="users.id", index=True, default=1)
     email_enabled: bool = Field(default=True)
-    email_address: str = Field(default="bruno@empresa.com.br")
+    email_address: str = Field(default="usuario@example.com")
     smtp_host: Optional[str] = Field(default=None)
     smtp_port: int = Field(default=587)
     smtp_user: Optional[str] = Field(default=None)

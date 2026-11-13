@@ -5,7 +5,7 @@
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     email TEXT NOT NULL UNIQUE,
-    name TEXT NOT NULL DEFAULT 'Bruno',
+    name TEXT NOT NULL DEFAULT 'Usuário',
     password_hash TEXT NOT NULL DEFAULT '',
     timezone TEXT NOT NULL DEFAULT 'America/Sao_Paulo',
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS notification_preferences (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL REFERENCES users(id),
     email_enabled BOOLEAN NOT NULL DEFAULT 1,
-    email_address TEXT NOT NULL DEFAULT 'bruno@empresa.com.br',
+    email_address TEXT NOT NULL DEFAULT 'usuario@example.com',
     smtp_host TEXT,
     smtp_port INTEGER NOT NULL DEFAULT 587,
     smtp_user TEXT,
