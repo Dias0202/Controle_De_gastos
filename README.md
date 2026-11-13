@@ -120,3 +120,9 @@ cd backend
 - [x] **Zero armazenamento de senhas bancárias**: A autorização ocorre exclusivamente via OAuth/Open Finance no ambiente da Pluggy e do banco detentor da conta.
 - [x] **Revogação e Exclusão (Direito de Eliminação LGPD)**: Na aba **Conexões Bancárias**, o botão **Desconectar** revoga o Item na Pluggy (`DELETE /items/{id}`) e remove todas as contas e transações associadas no banco local, registrando o evento em `audit_events`.
 - [x] **Portabilidade LGPD**: Endpoint `GET /api/lgpd/export` disponível para exportação estruturada dos dados do titular.
+
+---
+
+## Licença
+
+[MIT](LICENSE).
